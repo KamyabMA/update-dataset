@@ -99,24 +99,25 @@ def update_my_btcusdt_data(time_frame: str, PATH_Binance_spot_BTCUSDT_Xm: str) -
     # download and reformat the data:
     print("Downloading data...")
     download_plan = get_download_plan(yy_start, mm_start, dd_start, yy_last, mm_last, dd_last)
-
-    for dict in download_plan:
-        if dict['data_type'] == 'd':
-            yy_start = dict['start_date'][0]
-            mm_start = dict['start_date'][1]
-            dd_start = dict['start_date'][2]
-            yy_last = dict['end_date'][0]
-            mm_last = dict['end_date'][1]
-            dd_last = dict['end_date'][2]
-            download_range_days('BTCUSDT', time_frame, yy_start, mm_start, dd_start, yy_last, mm_last, dd_last, './output')
-        else:
-            # dict['data_type'] = 'm'
-            yy_start = dict['start_date'][0]
-            mm_start = dict['start_date'][1]
-            yy_last = yy_start
-            mm_last = mm_start
-            download_range_months('BTCUSDT', time_frame, yy_start, mm_start, yy_last, mm_last, './output')
-
+    try:
+        for dict in download_plan:
+            if dict['data_type'] == 'd':
+                yy_start = dict['start_date'][0]
+                mm_start = dict['start_date'][1]
+                dd_start = dict['start_date'][2]
+                yy_last = dict['end_date'][0]
+                mm_last = dict['end_date'][1]
+                dd_last = dict['end_date'][2]
+                download_range_days('BTCUSDT', time_frame, yy_start, mm_start, dd_start, yy_last, mm_last, dd_last, './output')
+            else:
+                # dict['data_type'] = 'm'
+                yy_start = dict['start_date'][0]
+                mm_start = dict['start_date'][1]
+                yy_last = yy_start
+                mm_last = mm_start
+                download_range_months('BTCUSDT', time_frame, yy_start, mm_start, yy_last, mm_last, './output')
+    except:
+        pass
     print('Download completed.')
     reformat_binance_vision_kline_files('./output', './output/new_data.csv')
 
