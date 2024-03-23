@@ -107,7 +107,7 @@ def download_file(url: str, download_path: str) -> None:
         file.write(response.content)
         file.close
     else:
-        raise Exception(url + ' got HTTP status code ' + str(response.status_code) + '. No file was downloaded.')
+        raise Exception(url + ' got HTTP status code ' + str(response.status_code) + '. Binance has not yet updated their dataset. Try again in a couple of hours.')
 
 
 
@@ -174,8 +174,6 @@ def download_range_days(asset_pair: str, time_frame: str,
         url, file_name = generate_url_and_file_name(asset_pair, time_frame, date[0], date[1], date[2])
         path = folder_path + '/' + file_name
         download_file(url, path)
-    
-    print('Download completed.')
 
 
 def download_range_months(asset_pair: str, time_frame: str, 
@@ -231,5 +229,3 @@ def download_range_months(asset_pair: str, time_frame: str,
         url, file_name = generate_url_and_file_name(asset_pair, time_frame, date[0], date[1], None)
         path = folder_path + '/' + file_name
         download_file(url, path)
-    
-    print('Download completed.')
