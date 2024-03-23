@@ -97,3 +97,23 @@ def get_today_date():
     """
     dt = datetime.datetime.today()
     return dt.year, dt.month, dt.day
+
+def get_last_day_of_month(yy: int, mm: int):
+    """
+    Gets the date of the last day of a given month.
+    Code example of how to use this function:
+    yy, mm, dd =  get_last_day_of_month(2023, 2)
+
+    Args:
+        yy (int)
+        mm (int)
+    Returns:
+        yy, mm, dd (all in int)
+    """
+    # get first date of the next month:
+    if mm == 12:
+        dt = datetime.datetime(year=yy+1, month=1, day=1)
+    else:
+        dt = datetime.datetime(year=yy, month=mm+1, day=1)
+    # return the previuos date as the last day of the current month:
+    return get_previous_day_date(dt.year, dt.month, dt.day)
